@@ -30,5 +30,6 @@ export interface GitHubIssue {
   assignee: GitHubUser | null
   pull_request?: {
     url: string
+    html_url: string
   }
 }

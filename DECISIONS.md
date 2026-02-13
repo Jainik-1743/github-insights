@@ -182,3 +182,28 @@ This ensures:
 - No credential exposure
 - No 401 unauthorized errors
 - Clean separation of concerns
+
+## Mutation Strategy (Closing Issues)
+
+A Server Action (`closeIssue`) was implemented to handle the closing of issues.
+
+### Optimistic UI Updates
+
+To meet the requirement of "No UI flicker," **TanStack Query's `onMutate`**
+lifecycle is used.
+
+**Workflow:**
+
+1.  **Immediate:** User clicks "Close Issue". The UI state (`issue.state`) is
+    manually updated to `"closed"`, and the badge color changes.
+2.  **Background:** The network request is sent to the GitHub API.
+3.  **Rollback:** If the request fails (e.g., Permission Denied), the `onError`
+    callback fires, reverting the UI to "Open" and triggering a toast
+    notification.
+
+This ensures the application feels instant while maintaining data integrity.
+
+### Prevention of Duplicate Submissions
+
+The "Close Issue" button is disabled (`disabled={mutation.isPending}`) while a
+request is in-flight to prevent race conditions and API abuse.

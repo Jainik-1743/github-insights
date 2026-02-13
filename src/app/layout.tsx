@@ -1,6 +1,7 @@
-import QueryProvider from "@/providers/QueryProvider" // 2. Re-adding the provider
+import QueryProvider from "@/providers/QueryProvider"
 import type { Metadata } from "next"
-import { Inter, JetBrains_Mono } from "next/font/google" // 1. Professional Fonts
+import { Inter, JetBrains_Mono } from "next/font/google"
+import { Toaster } from "sonner"
 import "./globals.css"
 
 const inter = Inter({
@@ -31,6 +32,7 @@ export default function RootLayout({
         className={`${inter.variable} ${jetbrainsMono.variable} bg-background text-foreground font-sans antialiased`}
       >
         <QueryProvider>{children}</QueryProvider>
+        <Toaster />
       </body>
     </html>
   )

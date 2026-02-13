@@ -27,8 +27,24 @@ export async function githubFetch<T>(
     cache: options.cache || "no-store",
   })
 
-  // 3. "Rate Limit"
-  if (res.status === 403 || res.status === 429) {
+  if (res.status === 403) {
+    // Check if it is actually a rate limit
+    const remaining = res.headers.get("x-ratelimit-remaining")
+
+    if (remaining === "0") {
+      throw new Error(
+        "⚠️ GitHub Rate Limit Exceeded. Please try again in an hour.",
+      )
+    }
+
+    // If we have requests left, it's a Permission/Auth error
+    throw new Error(
+      "⛔ Permission Denied: You do not have access to modify this repository.",
+    )
+  }
+
+  // 4. Handle Rate Limit (429 is always rate limit)
+  if (res.status === 429) {
     throw new Error(
       "⚠️ GitHub Rate Limit Exceeded. Please try again in an hour.",
     )
