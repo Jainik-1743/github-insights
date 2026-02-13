@@ -129,3 +129,56 @@ This prevents:
 - UI flicker
 - Horizontal layout changes during loading
 - Visual instability
+
+## Issues Page Architecture
+
+The Issues page is implemented as a **Client Component**.
+
+### Reasoning
+
+The page requires:
+
+- Pagination
+- Filtering (open / closed)
+- Assignee filtering
+- Sorting (created / comments)
+- Optimistic UI updates for mutation
+
+These features require local UI state and React Query, which are client-side
+concerns.
+
+Therefore, the Issues page was intentionally implemented as a Client Component.
+
+---
+
+## Server Action Integration for Secure Data Fetching
+
+Instead of calling the GitHub API directly from the browser, a Server Action
+(`getIssues`) is used.
+
+### Why Not Direct Client Fetch?
+
+- GitHub API requires a private token.
+- Environment variables are not accessible in client components.
+- Exposing tokens via `NEXT_PUBLIC_` would be a security risk.
+
+### Why Not Create Custom API Routes?
+
+- The assignment requires using the GitHub REST API.
+- Server Actions provide a built-in server boundary without introducing
+  additional REST endpoints.
+- Keeps architecture minimal and aligned with Next.js App Router principles.
+
+### Final Data Flow
+
+Client (React Query)  
+→ Server Action  
+→ `githubFetch`  
+→ GitHub API
+
+This ensures:
+
+- Secure token handling
+- No credential exposure
+- No 401 unauthorized errors
+- Clean separation of concerns

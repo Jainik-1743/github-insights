@@ -28,4 +28,7 @@ export interface GitHubIssue {
   html_url: string
   labels: { name: string; color: string }[]
   assignee: GitHubUser | null
+  pull_request?: {
+    url: string
+  }
 }
