@@ -87,7 +87,7 @@ export default function IssuesPage({
   }
 
   const handleRowClick = (issueNumber: number) => {
-    router.push(`/${owner}/${repo}/issues/${issueNumber}`)
+    router.push(`/${owner}/${repo}/issues/${issueNumber}`, { scroll: false })
   }
 
   return (
@@ -187,7 +187,7 @@ export default function IssuesPage({
           {isLoading ? (
             <div className='space-y-4 p-6'>
               {Array.from({ length: 5 }).map((_, i) => (
-                <Skeleton key={i} className='h-12 w-full' />
+                <Skeleton key={`issue-skeleton-${i}`} className='h-12 w-full' />
               ))}
             </div>
           ) : (
