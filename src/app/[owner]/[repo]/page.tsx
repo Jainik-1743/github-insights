@@ -2,6 +2,14 @@ import { MaxWidthWrapper } from "@/components/layout/max-width-wrapper"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
+import {
   Card,
   CardContent,
   CardDescription,
@@ -47,17 +55,22 @@ export default async function RepoPage({
   return (
     <MaxWidthWrapper>
       <div className='space-y-8 py-10'>
-        <div className='text-muted-foreground flex items-center gap-2 text-sm'>
-          <Link href='/' className='hover:text-foreground transition-colors'>
-            Home
-          </Link>
-          <span>/</span>
-          <span className='hover:text-foreground cursor-default transition-colors'>
-            {owner}
-          </span>
-          <span>/</span>
-          <span className='text-foreground font-medium'>{repo}</span>
-        </div>
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href='/'>Home</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              {/* Owner is static text since we don't have an owner page */}
+              <span className='text-muted-foreground'>{owner}</span>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>{repo}</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
 
         {error || !repoData ? (
           <Card className='border-red-500 bg-red-50'>

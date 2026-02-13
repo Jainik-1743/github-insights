@@ -51,7 +51,7 @@ export default function IssueDetail({
 
   return (
     <MaxWidthWrapper>
-      <div className='py-12'>
+      <div className='py-6'>
         <Card className='border-2 shadow-sm'>
           <CardHeader className='space-y-4'>
             <div className='flex items-center justify-between'>

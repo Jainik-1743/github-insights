@@ -15,6 +15,14 @@ import { useRouter } from "next/navigation"
 import { use, useState } from "react"
 
 import { Badge } from "@/components/ui/badge"
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
 import { Card } from "@/components/ui/card"
 import {
   Pagination,
@@ -85,6 +93,25 @@ export default function IssuesPage({
   return (
     <MaxWidthWrapper>
       <div className='space-y-8 py-12'>
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href='/'>Home</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+
+            <BreadcrumbItem>
+              <BreadcrumbLink href={`/${owner}/${repo}`}>
+                {owner}/{repo}
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+
+            <BreadcrumbItem>
+              <BreadcrumbPage>Issues</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
         {/* Header */}
         <div className='flex flex-col gap-6 md:flex-row md:items-center md:justify-between'>
           <div>

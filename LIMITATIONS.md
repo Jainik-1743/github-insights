@@ -52,3 +52,16 @@ The dashboard exists behind a dynamic route `/[owner]/[repo]`.
 - **Future Improvement:** For a production app, generating a `sitemap.xml` or
   using `generateStaticParams` for popular repositories would improve SEO
   discovery.
+
+## 6. URL Synchronization (Deep Linking)
+
+Currently, the Issue filters (Pagination, State, Sorting) are managed via local
+React state (`useState`).
+
+- **Consequence:** Refreshing the page resets the filters to their default
+  values (Page 1, Open Issues). You cannot share a URL pointing to a specific
+  filter state (e.g., `?state=closed&page=3`).
+- **Tradeoff:** This decision was made to prioritize the implementation of the
+  complex "Optimistic UI" mutation logic within the given time constraints.
+- **Future Improvement:** Lift the state to URL Search Params
+  (`useSearchParams`) to enable deep linking and shareable URLs.
