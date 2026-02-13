@@ -20,3 +20,27 @@ Errors are normalized into:
 
 The utility does not depend on Next.js navigation APIs to maintain separation of
 concerns.
+
+### ESLint Enforcement for Server State
+
+The TanStack Query ESLint plugin is integrated using flat config to:
+
+- Enforce stable query keys
+- Prevent anti-patterns in query usage
+- Improve reliability of optimistic updates
+
+### React Query Caching Strategy
+
+- staleTime: 60 seconds  
+  Prevents excessive API calls and protects GitHub rate limits.
+
+- gcTime: 5 minutes  
+  Keeps pagination and issue data cached temporarily to avoid refetching when
+  navigating back.
+
+- refetchOnWindowFocus: false  
+  Prevents UI flicker and unnecessary background refetches when users switch
+  tabs.
+
+- retry: 1  
+  Avoids repeated failed requests under rate limit scenarios.
