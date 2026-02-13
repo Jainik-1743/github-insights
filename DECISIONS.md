@@ -44,3 +44,8 @@ The TanStack Query ESLint plugin is integrated using flat config to:
 
 - retry: 1  
   Avoids repeated failed requests under rate limit scenarios.
+
+## Layout Strategy
+
+A reusable `MaxWidthWrapper` component was created to enforce consistent
+horizontal layout.
